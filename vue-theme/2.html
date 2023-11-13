@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue.extend</title>
+    <!-- 通过 CDN 使用 Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <button id="btn">bindEl</button>
+    <script>
+        const { createApp, h, ref } = Vue
+
+        const app = createApp({
+            setup(props) {
+                const name = ref('red mi')
+                return {
+                    name
+                }
+            },
+            render() {
+                return h('div', {
+                    style: {
+                        fontSize: '24px'
+                    }
+                }, 'hello, ' + this.name)
+            }
+        });
+        const parent = document.createElement('div');
+        const instance = app.mount(parent);
+        console.log('instance', instance);
+        console.log('instance', instance.$el);
+
+        let btn = document.getElementById('btn');
+        const bindEl = () => {
+            let container = document.getElementById('app');
+            container.appendChild(instance.$el);
+        }
+        btn.addEventListener('click', bindEl);
+
+    </script>
+</body>
+
+</html>
